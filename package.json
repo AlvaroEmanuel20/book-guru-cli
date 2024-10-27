@@ -1,0 +1,45 @@
+{
+  "name": "book-guru-cli",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "bin": {
+    "book-guru": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write src/**/*.{js,ts,json,mjs}",
+    "format:check": "prettier --check src/**/*.{js,ts,json,mjs}",
+    "test:unit": "vitest run"
+  },
+  "keywords": [
+    "AI",
+    "CLI",
+    "Books"
+  ],
+  "author": "Álvaro Emanuel",
+  "license": "ISC",
+  "description": "An AI book recommendation CLI app",
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/figlet": "^1.7.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.1",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "figlet": "^1.8.0",
+    "ora": "^8.1.0",
+    "picocolors": "^1.1.1"
+  }
+}
