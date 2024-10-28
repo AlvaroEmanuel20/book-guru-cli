@@ -1,4 +1,5 @@
 dist/
+database.json
 
 # Logs
 logs
