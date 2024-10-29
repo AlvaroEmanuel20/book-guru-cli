@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-import './lib/database';
 import { Command } from 'commander';
+import { access } from 'node:fs/promises';
+import database from './lib/database';
 import figlet from 'figlet';
 import colors from 'picocolors';
-import database from './lib/database';
 import preferences from './commands/preferences';
-import { access } from 'node:fs/promises';
 
 const program = new Command();
 console.log(colors.bold(colors.blue(figlet.textSync('Book Guru'))));
