@@ -1,11 +1,13 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFile, writeFile } from 'node:fs/promises';
 
 export type Data = {
-  preferences: {
-    language: string;
-    genre: string;
-  };
+  preferences: Preferences;
   recommendations: Recommendation[];
+};
+
+export type Preferences = {
+  language: string;
+  genre: string;
 };
 
 export type Recommendation = {
@@ -25,20 +27,33 @@ export class Database {
     this.pathName = pathName;
   }
 
-  create(data: Data) {
+  async create(data: Data) {
     try {
-      writeFileSync(this.pathName, JSON.stringify(data, null, 2));
+      await writeFile(this.pathName, JSON.stringify(data, null, 2));
     } catch (error) {
       console.error(error);
+      process.exit(1);
     }
   }
 
-  read(): Data | undefined {
+  async read() {
     try {
-      const data = readFileSync('database.json', 'utf8');
-      return JSON.parse(data);
+      const data = await readFile('database.json', 'utf8');
+      return JSON.parse(data) as Data;
     } catch (error) {
       console.error(error);
+      process.exit(1);
+    }
+  }
+
+  async update(fn: (data: Data) => unknown) {
+    try {
+      const data = await this.read();
+      fn(data);
+      await writeFile(this.pathName, JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
     }
   }
 }

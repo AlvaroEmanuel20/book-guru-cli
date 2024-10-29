@@ -1,21 +1,14 @@
 #!/usr/bin/env node
 
-import { existsSync } from 'node:fs';
 import './lib/database';
 import { Command } from 'commander';
 import figlet from 'figlet';
 import colors from 'picocolors';
 import database from './lib/database';
+import preferences from './commands/preferences';
+import { access } from 'node:fs/promises';
 
 const program = new Command();
-
-if (!existsSync('database.json')) {
-  database.create({
-    preferences: { language: '', genre: '' },
-    recommendations: [],
-  });
-}
-
 console.log(colors.bold(colors.blue(figlet.textSync('Book Guru'))));
 
 program
@@ -23,9 +16,21 @@ program
   .description('An AI book recommendation app')
   .version('1.0.0', '-v, --version', 'current app version');
 
-program
-  .command('preferences')
-  .description('view and edit book preferences')
-  .argument('<action>', 'view or edit');
+(async () => {
+  try {
+    await access('database.json');
+  } catch (error) {
+    await database.create({
+      preferences: { language: '', genre: '' },
+      recommendations: [],
+    });
+  }
 
-program.parse();
+  program
+    .command('preferences')
+    .description('view and edit book preferences')
+    .argument('<actionType>', 'view or edit')
+    .action(preferences);
+
+  await program.parseAsync(process.argv);
+})();
