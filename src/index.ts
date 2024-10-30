@@ -28,7 +28,7 @@ program
   program
     .command('preferences')
     .description('view and edit book preferences')
-    .argument('<actionType>', 'view or edit')
+    .argument('[actionType]', 'view or edit', 'view')
     .action(preferences);
 
   await program.parseAsync(process.argv);
