@@ -11,7 +11,6 @@ export type Preferences = {
 };
 
 export type Recommendation = {
-  photoUrl: string;
   title: string;
   description: string;
   pages: number;
