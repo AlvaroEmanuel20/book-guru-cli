@@ -3,6 +3,8 @@ import printRecommendation from '../utils/printRecommendation';
 import colors from 'picocolors';
 import sortRecommendations from '../utils/sortRecommendations';
 import groupRecommendations from '../utils/groupRecommendations';
+import exportRecommendations from '../utils/exportRecommendations';
+import * as emoji from 'node-emoji';
 
 export type ListCommandOptions = {
   sort?: boolean | 'title' | 'author';
@@ -13,6 +15,21 @@ export type ListCommandOptions = {
 export default async function list(options: ListCommandOptions) {
   let recommendations: Recommendation[] | { [key: string]: Recommendation[] } =
     (await database.read()).recommendations;
+
+  if (options.export) {
+    await exportRecommendations(recommendations);
+
+    console.log(
+      colors.bold(
+        colors.green(
+          emoji.get('white_check_mark') +
+            ' Exported recommendations to recommendations.csv',
+        ),
+      ),
+    );
+
+    return;
+  }
 
   if (options.sort) {
     recommendations = sortRecommendations(recommendations, {
