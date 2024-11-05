@@ -4,6 +4,7 @@ import database, { Recommendation } from '../lib/database';
 import { openai } from '../lib/openai';
 import colors from 'picocolors';
 import ora from 'ora';
+import printRecommendation from '../utils/printRecommendation';
 
 export default async function generate(
   limit: number,
@@ -104,16 +105,8 @@ export default async function generate(
     );
 
     spinner.succeed(colors.green('Your new book recommendations:'));
-
-    result.recommendations.forEach((book, i) => {
-      console.log(`${i + 1}) ${colors.bold(colors.blue(book.title))}`);
-      console.log(`Description: ${book.description}`);
-      console.log(`Author: ${book.author}`);
-      console.log(`Genre: ${book.genre}`);
-      console.log(`Language: ${book.language}`);
-      console.log(`Pages: ${book.pages}\n`);
-    });
-
+    result.recommendations.forEach((book) => printRecommendation(book));
+    
     return;
   } catch (error) {
     console.error(error);
