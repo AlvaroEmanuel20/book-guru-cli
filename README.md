@@ -7,7 +7,7 @@ An app for book recommendations based on user books preferences. Get recommendat
 - Book recommendation from OpenAI API
 - Persist data with simple JSON file
 - Get book offers
-- Export recommendations to a sheets file
+- Export recommendations to a CSV file
 
 ## Commands
 

@@ -13,13 +13,23 @@ export default async function generate(
   let preferences = (await database.read()).preferences;
   const spinner = ora('Generating your book recommendations...');
 
-  if (options.new) {
+  if (options.new || !preferences.language) {
     preferences.language = await input({
       message: "What's your preferred language?",
     });
+  }
 
+  if (options.new || !preferences.genre) {
     preferences.genre = await input({
       message: "What's your preferred genre?",
+    });
+  }
+
+  if (options.new || !preferences.bookTaste) {
+    preferences.bookTaste = await input({
+      message: "What's your book taste?",
+      validate: (value) =>
+        value.length > 200 ? 'Input too big (max: 200 characters)' : true,
     });
   }
 
@@ -35,7 +45,7 @@ export default async function generate(
         },
         {
           role: 'user',
-          content: `Generate ${limit} recommmendations, the books must be in ${preferences.language} language and in ${preferences.genre} genre`,
+          content: `Generate ${limit} recommmendations, the books must be in ${preferences.language} language and in ${preferences.genre} genre. Take this into account: ${preferences.bookTaste}`,
         },
       ],
       response_format: {
@@ -106,7 +116,7 @@ export default async function generate(
 
     spinner.succeed(colors.green('Your new book recommendations:'));
     result.recommendations.forEach((book) => printRecommendation(book));
-    
+
     return;
   } catch (error) {
     console.error(error);

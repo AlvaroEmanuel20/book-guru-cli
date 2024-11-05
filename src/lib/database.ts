@@ -8,6 +8,7 @@ export type Data = {
 export type Preferences = {
   language: string;
   genre: string;
+  bookTaste: string;
 };
 
 export type Recommendation = {

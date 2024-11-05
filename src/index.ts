@@ -22,7 +22,7 @@ program
     await access('database.json');
   } catch (error) {
     await database.create({
-      preferences: { language: '', genre: '' },
+      preferences: { language: '', genre: '', bookTaste: '' },
       recommendations: [],
     });
   }
