@@ -16,8 +16,8 @@ An app for book recommendations based on user books preferences. Get recommendat
   - `edit`: edit preferences
 - `generate [options] <limit>`: generate new recommendations
   - `limit`: limit of generations (integer)
-  - `-n, --no-preferences`: generate without saved preferences
+  - `-n, --new`: generate without saved preferences
 - `list`: list book recommendations
-  - `-s, --sort`: sort by title
-  - `-g, --group`: group recommendations by genre (soon: author group)
-  - `-e, --export <fileType>`: export recommendations in pdf, csv or doc
+  - `-s, --sort <sortType>`: sort by title or author
+  - `-g, --group <groupType>`: group recommendations by genre, author or language
+  - `-e, --export`: export recommendations in CSV
