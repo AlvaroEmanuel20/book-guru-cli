@@ -47,6 +47,7 @@ npm install
 ```js
 OPENAI_API_KEY=
 OPENAI_MODEL=
+DATABASE_FILE_NAME=
 ```
 
 4 - Build and install cli app:
@@ -56,7 +57,7 @@ npm run build
 npm install -g
 ```
 
-5 - Now, you can run in the same project directory:
+5 - Now, you can run:
 
 ```bash
 book-guru -v

@@ -3,19 +3,19 @@ import { promisify } from 'util';
 import { exec } from 'child_process';
 
 const execPromise = promisify(exec);
-const database = new Database('database.json');
+const database = new Database('database-test.json');
 const defaultData: Data = {
-  preferences: { language: '', genre: '' },
+  preferences: { language: '', genre: '', bookTaste: '' },
   recommendations: [],
 };
 
 describe('JSON Database File', () => {
-  test('Create a database.json with default data and read', async () => {
+  test('Create a database-test.json with default data and read', async () => {
     await database.create(defaultData);
     expect(await database.read()).toStrictEqual(defaultData);
   });
 
-  test('Create a database.json, update data and read', async () => {
+  test('Create a database-test.json, update data and read', async () => {
     await database.create(defaultData);
 
     await database.update(({ preferences }) => {
@@ -27,18 +27,18 @@ describe('JSON Database File', () => {
       preferences: {
         language: 'Portuguese',
         genre: 'Romance',
+        bookTaste: '',
       },
       recommendations: [],
     });
   });
 
-  test('Create a database.json, add some recommendations and read', async () => {
+  test('Create a database-test.json, add some recommendations and read', async () => {
     await database.create(defaultData);
 
     await database.update(({ recommendations }) => {
       recommendations.push(
         {
-          photoUrl: 'https://example.com/book1.jpg',
           title: 'O Hobbit',
           description: 'Uma jornada fantástica através da Terra Média.',
           pages: 310,
@@ -47,7 +47,6 @@ describe('JSON Database File', () => {
           language: 'Português',
         },
         {
-          photoUrl: 'https://example.com/book2.jpg',
           title: '1984',
           description: 'Um romance distópico sobre vigilância e totalitarismo.',
           pages: 328,
@@ -62,10 +61,10 @@ describe('JSON Database File', () => {
       preferences: {
         language: '',
         genre: '',
+        bookTaste: '',
       },
       recommendations: [
         {
-          photoUrl: 'https://example.com/book1.jpg',
           title: 'O Hobbit',
           description: 'Uma jornada fantástica através da Terra Média.',
           pages: 310,
@@ -74,7 +73,6 @@ describe('JSON Database File', () => {
           language: 'Português',
         },
         {
-          photoUrl: 'https://example.com/book2.jpg',
           title: '1984',
           description: 'Um romance distópico sobre vigilância e totalitarismo.',
           pages: 328,
@@ -88,7 +86,7 @@ describe('JSON Database File', () => {
 
   afterEach(async () => {
     try {
-      await execPromise('rm -f database.json');
+      await execPromise('rm -f database-test.json');
     } catch (error) {
       console.error(error);
     }

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
+import 'dotenv/config';
 import { Command } from 'commander';
 import { access } from 'node:fs/promises';
+import path from 'node:path';
 import database from './lib/database';
 import figlet from 'figlet';
 import colors from 'picocolors';
@@ -19,7 +21,8 @@ program
 
 (async () => {
   try {
-    await access('database.json');
+    const databaseName = process.env.DATABASE_FILE_NAME || 'database.json';
+    await access(path.join(__dirname, '..', databaseName));
   } catch (error) {
     await database.create({
       preferences: { language: '', genre: '', bookTaste: '' },
