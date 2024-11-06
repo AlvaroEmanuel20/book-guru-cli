@@ -57,7 +57,7 @@ npm run build
 npm install -g
 ```
 
-5 - Now, you can run in the same project directory:
+5 - Now, you can run:
 
 ```bash
 book-guru -v
