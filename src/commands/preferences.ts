@@ -25,7 +25,7 @@ export default async function preferences(actionType: 'view' | 'edit') {
 
   const language = await input({ message: "What's your preferred language?" });
   const genre = await input({ message: "What's your preferred genre?" });
-  
+
   const bookTaste = await input({
     message: "What's your book taste?",
     validate: (value) =>
