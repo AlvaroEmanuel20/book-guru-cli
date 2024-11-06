@@ -1,5 +1,6 @@
 dist/
 database.json
+recommendations.csv
 
 # Logs
 logs

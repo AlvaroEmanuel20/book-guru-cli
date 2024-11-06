@@ -8,5 +8,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "exclude": ["vitest.config.ts", "tests/"]
+  "exclude": ["vitest.config.ts", "tests/"],
 }
