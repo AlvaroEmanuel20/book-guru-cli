@@ -1,4 +1,6 @@
+import 'dotenv/config';
 import { readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 
 export type Data = {
   preferences: Preferences;
@@ -24,7 +26,7 @@ export class Database {
   private readonly pathName: string;
 
   constructor(pathName: string) {
-    this.pathName = pathName;
+    this.pathName = path.join(__dirname, '..', '..', pathName);
   }
 
   async create(data: Data) {
@@ -38,7 +40,7 @@ export class Database {
 
   async read() {
     try {
-      const data = await readFile('database.json', 'utf8');
+      const data = await readFile(this.pathName, 'utf8');
       return JSON.parse(data) as Data;
     } catch (error) {
       console.error(error);
@@ -58,6 +60,8 @@ export class Database {
   }
 }
 
-const database = new Database('database.json');
+const database = new Database(
+  process.env.DATABASE_FILE_NAME || 'database.json',
+);
 
 export default database;

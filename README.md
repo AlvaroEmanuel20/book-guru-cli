@@ -47,6 +47,7 @@ npm install
 ```js
 OPENAI_API_KEY=
 OPENAI_MODEL=
+DATABASE_FILE_NAME=
 ```
 
 4 - Build and install cli app:
